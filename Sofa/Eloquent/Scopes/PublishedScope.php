@@ -50,6 +50,11 @@ class PublishedScope implements ScopeInterface {
 				// we need to get rid of the binding as well
 				$this->removeBinding($query, $bindingKey);
 			}
+			
+			// Check if where is either NULL or NOT NULL type,
+			// if that's the case, don't increment the key
+			// since there is no binding for these types
+			if ( ! in_array($where['type'], ['Null', 'NotNull'])) $bindingKey++;
 		}
 	}
 
